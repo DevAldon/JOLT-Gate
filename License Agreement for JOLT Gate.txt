@@ -1,4 +1,4 @@
-License Agreement for JOLT Dashboard Notes
+License Agreement for JOLT Gate
 
 Copyright (c) 2025 John Oltmans
 
