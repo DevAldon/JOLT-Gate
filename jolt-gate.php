@@ -18,44 +18,80 @@ if (!defined('ABSPATH')) {
 // Define plugin constants
 define('JOLT_GATE_VERSION', '1.0.0');
 define('JOLT_GATE_PLUGIN_FILE', __FILE__);
-define('JOLT_GATE_PLUGIN_DIR', plugin_dir_path(__FILE__));
-define('JOLT_GATE_PLUGIN_URL', plugin_dir_url(__FILE__));
 
-// Include required files
-require_once JOLT_GATE_PLUGIN_DIR . 'includes/class-jolt-gate.php';
-require_once JOLT_GATE_PLUGIN_DIR . 'includes/class-jolt-gate-admin.php';
+// Use WordPress functions if available, otherwise fallback
+if (function_exists('plugin_dir_path')) {
+    define('JOLT_GATE_PLUGIN_DIR', plugin_dir_path(__FILE__));
+} else {
+    define('JOLT_GATE_PLUGIN_DIR', dirname(__FILE__) . '/');
+}
+
+if (function_exists('plugin_dir_url')) {
+    define('JOLT_GATE_PLUGIN_URL', plugin_dir_url(__FILE__));
+} else {
+    define('JOLT_GATE_PLUGIN_URL', '');
+}
+
+// Include required files only if they exist
+if (file_exists(JOLT_GATE_PLUGIN_DIR . 'includes/class-jolt-gate.php')) {
+    require_once JOLT_GATE_PLUGIN_DIR . 'includes/class-jolt-gate.php';
+}
+
+if (file_exists(JOLT_GATE_PLUGIN_DIR . 'includes/class-jolt-gate-admin.php')) {
+    require_once JOLT_GATE_PLUGIN_DIR . 'includes/class-jolt-gate-admin.php';
+}
 
 /**
  * Initialize the plugin
  */
 function jolt_gate_init() {
-    new JoltGate();
+    // Only initialize if classes exist
+    if (class_exists('JoltGate')) {
+        new JoltGate();
+    }
     
-    if (is_admin()) {
+    if (function_exists('is_admin') && is_admin() && class_exists('JoltGateAdmin')) {
         new JoltGateAdmin();
     }
 }
-add_action('plugins_loaded', 'jolt_gate_init');
+
+// Only add WordPress hooks if we're in WordPress environment
+if (function_exists('add_action')) {
+    add_action('plugins_loaded', 'jolt_gate_init');
+}
 
 /**
  * Activation hook
  */
 function jolt_gate_activate() {
     // Set default options
-    if (!get_option('jolt_gate_custom_url')) {
-        add_option('jolt_gate_custom_url', 'myadmin');
+    if (function_exists('get_option') && !get_option('jolt_gate_custom_url')) {
+        if (function_exists('add_option')) {
+            add_option('jolt_gate_custom_url', 'myadmin');
+        }
     }
     
     // Flush rewrite rules
-    flush_rewrite_rules();
+    if (function_exists('flush_rewrite_rules')) {
+        flush_rewrite_rules();
+    }
 }
-register_activation_hook(__FILE__, 'jolt_gate_activate');
 
 /**
  * Deactivation hook
  */
 function jolt_gate_deactivate() {
     // Flush rewrite rules to remove custom rules
-    flush_rewrite_rules();
+    if (function_exists('flush_rewrite_rules')) {
+        flush_rewrite_rules();
+    }
 }
-register_deactivation_hook(__FILE__, 'jolt_gate_deactivate');
+
+// Register hooks only if WordPress functions are available
+if (function_exists('register_activation_hook')) {
+    register_activation_hook(__FILE__, 'jolt_gate_activate');
+}
+
+if (function_exists('register_deactivation_hook')) {
+    register_deactivation_hook(__FILE__, 'jolt_gate_deactivate');
+}
