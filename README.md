@@ -1,12 +1,8 @@
-- This plugin disables wp-login.php and/or wp-login.
-- This plugin disables XML-RPC, enhancing the site's protection against cyberattacks.
-
-
 <h1>JOLT Gate</h1>
 <img src="https://github.com/user-attachments/assets/53160a3f-af98-4637-91dc-bfedd1427d4c" alt="JOLT Gate" width="300" ><br>
-JOLT Gate is a WordPress plugin that lets you easily change the default login URL (wp-login.php) to a custom, unique URL.
-Increase your site’s security by hiding the login page behind a personalized path.<br>
-Privacy Focussed, safe and open source.
+JOLT Gate is a WordPress plugin that significantly increases your website's security by restricting access to the login page and admin area.<br>
+The plugin also disables XML-RPC and optionally restricts the REST API to logged-in users only.<br>
+JOLT Gate is Privacy Focussed, safe and open source.
 
 #
 ### Download your plugin here
