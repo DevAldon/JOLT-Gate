@@ -1,6 +1,7 @@
 - This plugin disables wp-login.php and/or wp-login.
 - This plugin disables XML-RPC, enhancing the site's protection against cyberattacks.
 
+
 *
 <h1>JOLT Gate</h1>
 <img src="https://github.com/user-attachments/assets/53160a3f-af98-4637-91dc-bfedd1427d4c" alt="JOLT Gate" width="300" ><br>
