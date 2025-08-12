@@ -15,9 +15,6 @@ You can read how to install [here](https://github.com/johnoltmans/WordPress/wiki
 <img width="282" height="420" alt="2025-08-12 13_56_12-Greenshot" src="https://github.com/user-attachments/assets/bafe9df9-73b2-4b7a-804d-8696e736f129" />
 <img width="1016" height="505" alt="Screenshot 2025-08-12 at 14-39-55 JOLT Gate Settings ‹ " src="https://github.com/user-attachments/assets/b501022e-930f-41bd-acbb-d5aa2469031c" />
 
-
-#
-
 ---
 
 ## 🛡 Security, Privacy & Usage Policy
