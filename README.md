@@ -9,14 +9,14 @@ All the plugins and or themes that i present to you are [privacy focussed, secur
 ### Download your plugin here
 You can download your plugin [here](https://github.com/johnoltmans/JOLT-Gate/archive/refs/heads/main.zip).<br>
 You can read how to install [here](https://github.com/johnoltmans/WordPress/wiki/How-to-install-the-plugins).
-#
-
-<img width="1920" height="933" alt="Screenshot 2025-07-15 at 14-12-58 JOLT Gate Settings ‹ " src="https://github.com/user-attachments/assets/6176c08d-ba91-47ff-9af3-6bbe5fc29b79" />
-<img width="1128" height="623" alt="Screenshot 2025-07-15 at 14-13-14 JOLT Gate Settings ‹ " src="https://github.com/user-attachments/assets/392ddee2-92e9-4b3c-b9ad-f8fcc416c438" />
 
 #
-# How to install the plugin.
-You can read https://github.com/Smoshed/WordPress-Plugins/wiki/How-to-install-the-plugins for more info.
+
+<img width="282" height="420" alt="2025-08-12 13_56_12-Greenshot" src="https://github.com/user-attachments/assets/bafe9df9-73b2-4b7a-804d-8696e736f129" />
+<img width="1016" height="505" alt="Screenshot 2025-08-12 at 14-39-55 JOLT Gate Settings ‹ " src="https://github.com/user-attachments/assets/b501022e-930f-41bd-acbb-d5aa2469031c" />
+
+
+#
 
 ---
 
