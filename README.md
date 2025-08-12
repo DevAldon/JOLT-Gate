@@ -2,7 +2,8 @@
 <img src="https://github.com/user-attachments/assets/53160a3f-af98-4637-91dc-bfedd1427d4c" alt="JOLT Gate" width="300" ><br>
 JOLT Gate is a WordPress plugin that significantly increases your website's security by restricting access to the login page and admin area.<br>
 The plugin also disables XML-RPC and optionally restricts the REST API to logged-in users only.<br><br>
-JOLT Gate is Privacy Focussed, safe and open source.
+
+All the plugins and or themes that i present to you are [privacy focussed, secure and open source](https://github.com/johnoltmans/WordPress/blob/main/SECURITY.md).
 
 #
 ### Download your plugin here
