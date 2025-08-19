@@ -6,8 +6,8 @@ Description: Replaces wp-login.php with a configurable custom login URL (default
 Version: 3.3.4
 Author: John Oltmans
 Author URI: https://www.johnoltmans.nl
-License: GPLv2 or later
-License URI: https://www.gnu.org/licenses/gpl-2.0.html
+License: GPL 3.0
+License URI: https://www.gnu.org/licenses/gpl-3.0.html
 */
 
 if (!defined('ABSPATH')) exit;
