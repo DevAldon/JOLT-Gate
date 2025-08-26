@@ -1,0 +1,181 @@
+body.jolt-gate-full-bg {
+    background: #004287 !important;
+    overflow: hidden !important;
+}
+
+.jolt-gate-admin-page {
+    min-height: 100vh;
+    height: 100vh;
+    margin: 0;
+    padding: 0 0 40px 0;
+    font-family: 'Segoe UI', 'Arial', sans-serif;
+    color: #fff;
+    background: transparent;
+    box-sizing: border-box;
+}
+
+.jolt-gate-header {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    margin: 48px 0 24px 64px;
+    background: none;
+    border-radius: 0;
+    box-shadow: none;
+    padding: 0;
+    max-width: none;
+}
+
+.jolt-gate-logo {
+    height: 120px;
+    width: auto;
+    margin: 0;
+    flex-shrink: 0;
+    filter: none;
+    background: none;
+    border-radius: 0;
+    box-shadow: none;
+}
+
+.jolt-gate-header h1 {
+    font-size: 2.2em;
+    font-weight: 700;
+    margin: 0 0 8px 0;
+    color: #fff;
+}
+.jolt-gate-welcome {
+    font-size: 1.05em;
+    color: #e3eefa;
+    margin-bottom: 6px;
+}
+
+/* Warning + copy block */
+.jolt-gate-warning {
+    margin: 0 64px 18px 64px;
+    padding: 12px 18px;
+    background: rgba(255,255,255,0.08);
+    color: #fff;
+    font-size: 1.03em;
+    font-weight: 500;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    max-width: 500px;
+}
+
+.jolt-gate-url-copy {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 4px;
+}
+
+#jolt-login-url {
+    font-family: 'Menlo','Consolas','monospace';
+    background: #004c8b;
+    color: #fff;
+    padding: 4px 12px;
+    border-radius: 2px;
+    font-size: 1em;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    user-select: all;
+}
+
+#jolt-copy-btn {
+    background: #1976D2;
+    color: #fff;
+    font-size: 0.98em;
+    border: none;
+    border-radius: 2px;
+    padding: 6px 16px;
+    cursor: pointer;
+    transition: background 0.18s;
+}
+#jolt-copy-btn:hover {
+    background: #1565c0;
+}
+
+.jolt-gate-card {
+    background: none;
+    border-radius: 0;
+    margin: 0 64px 32px 64px;
+    padding: 0;
+    box-shadow: none;
+    max-width: 560px;
+}
+
+.jolt-gate-card h2 {
+    font-size: 1.1em;
+    font-weight: 600;
+    margin-top: 0;
+    margin-bottom: 18px;
+    color: #fff;
+}
+
+.jolt-gate-form {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.jolt-gate-form label {
+    font-weight: 500;
+    color: #fff;
+}
+
+.jolt-gate-form input[type="text"] {
+    background: #004c8b;
+    color: #fff;
+    border: none;
+    padding: 10px 12px;
+    border-radius: 0;
+    font-size: 1em;
+    margin-bottom: 4px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.jolt-gate-description {
+    font-size: 0.98em;
+    color: #e0e8f0;
+    margin-bottom: 6px;
+}
+
+.jolt-gate-form code {
+    background: none;
+    color: #fff;
+    font-weight: bold;
+    font-size: 0.98em;
+}
+
+.jolt-gate-form .button-primary {
+    background: #2196F3;
+    color: #fff;
+    border: none;
+    padding: 10px 32px;
+    border-radius: 0;
+    font-size: 1em;
+    margin-top: 10px;
+    cursor: pointer;
+    box-shadow: none;
+    transition: background 0.15s;
+}
+.jolt-gate-form .button-primary:hover {
+    background: #1976D2;
+}
+
+hr {
+    border: none;
+    border-top: 1px solid #b5c7e5;
+    margin: 32px 64px 0 64px;
+    max-width: none;
+}
+
+.jolt-gate-help {
+    color: #b5c7e5;
+    font-size: 0.98em;
+    margin: 16px 64px 0 64px;
+    max-width: none;
+}

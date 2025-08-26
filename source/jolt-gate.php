@@ -3,7 +3,7 @@
 Plugin Name: JOLT Gate
 Plugin URI: https://github.com/johnoltmans/JOLT-Gate
 Description: Replaces wp-login.php with a configurable custom login URL (default: /myadmin). Also blocks XML-RPC and restricts the REST API to logged-in users only.
-Version: 3.3.4
+Version: 3.4.1
 Requires at least: 6.8
 Requires PHP: 7.4
 Author: John Oltmans
@@ -29,7 +29,6 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-// Add Settings link next to Deactivate in Plugins overview
 add_filter('plugin_action_links_' . plugin_basename(__FILE__), function($links) {
     $settings_link = '<a href="' . admin_url('options-general.php?page=jolt-gate') . '">Settings</a>';
     $links[] = $settings_link;
@@ -44,7 +43,6 @@ class JoltGate {
     private $slug = '';
 
     public function __construct() {
-        // Get the configured slug, or use the default
         $this->slug = get_option($this->option_name, $this->default_slug);
 
         add_action('init', [$this, 'block_wp_login_direct'], 0);
@@ -54,33 +52,31 @@ class JoltGate {
         add_filter('network_site_url', [$this, 'rewrite_wp_login_url'], 10, 4);
         add_filter('login_redirect', [$this, 'fix_login_redirect'], 10, 3);
 
-        // Disable XML-RPC
         add_filter('xmlrpc_enabled', '__return_false', 99);
-
-        // Restrict REST API to logged-in users only
         add_filter('rest_authentication_errors', [$this, 'restrict_rest_api']);
 
-        // Admin settings
         add_action('admin_menu', [$this, 'add_settings_page']);
         add_action('admin_init', [$this, 'register_settings']);
+
+        add_filter('admin_body_class', function($classes) {
+            $screen = get_current_screen();
+            if ($screen && $screen->id === 'settings_page_jolt-gate') {
+                $classes .= ' jolt-gate-full-bg';
+            }
+            return $classes;
+        });
     }
 
-    // Block direct access to wp-login.php, redirect to homepage unless it's allowed action
     public function block_wp_login_direct() {
         $is_wp_login = isset($_SERVER['SCRIPT_NAME']) && basename($_SERVER['SCRIPT_NAME']) === 'wp-login.php';
         if (!$is_wp_login) return;
-
-        // Allow essentials (password reset etc.)
         $allowed = ['logout', 'lostpassword', 'rp', 'resetpass', 'postpass'];
         $action = $_REQUEST['action'] ?? '';
         if (in_array($action, $allowed)) return;
-
-        // Redirect to homepage
         wp_redirect(home_url('/'));
         exit;
     }
 
-    // Show wp-login.php at the custom slug
     public function handle_custom_login() {
         $request_uri = $_SERVER['REQUEST_URI'] ?? '';
         $url_path = trim(strtok($request_uri, '?'), '/');
@@ -89,8 +85,6 @@ class JoltGate {
             $url_path = trim(substr($url_path, strlen($home_path)), '/');
         }
         if ($url_path !== $this->slug) return;
-
-        // Initialize variables for wp-login.php
         global $user_login, $error, $interim_login, $action, $redirect_to;
         if (!isset($user_login)) $user_login = '';
         if (!isset($error)) $error = '';
@@ -98,12 +92,10 @@ class JoltGate {
         if (!isset($action)) $action = '';
         if (!isset($redirect_to)) $redirect_to = '';
         $GLOBALS['pagenow'] = 'wp-login.php';
-
         require ABSPATH . 'wp-login.php';
         exit;
     }
 
-    // Rewrite login links to the custom slug
     public function custom_login_url($login_url, $redirect = '') {
         $custom_url = home_url($this->slug);
         if (!empty($redirect)) {
@@ -112,13 +104,11 @@ class JoltGate {
         return $custom_url;
     }
 
-    // Rewrite all wp-login.php links in WordPress to the custom login slug
     public function rewrite_wp_login_url($url, $path, $scheme, $blog_id) {
         if (strpos($url, 'wp-login.php') === false) return $url;
         return str_replace('wp-login.php', $this->slug, $url);
     }
 
-    // Ensure redirect after login never points to the slug (e.g. /myadmin)
     public function fix_login_redirect($redirect_to, $request, $user) {
         $slug_url = home_url($this->slug);
         if ($redirect_to === $slug_url || strpos($redirect_to, $slug_url) === 0) {
@@ -127,10 +117,7 @@ class JoltGate {
         return $redirect_to;
     }
 
-    // REST API only for logged-in users
     public function restrict_rest_api($result) {
-        // Allow specific endpoints for anonymous users here if needed
-        // if ( isset($_SERVER['REQUEST_URI']) && strpos($_SERVER['REQUEST_URI'], '/wp-json/contact-form-7') !== false ) return $result;
         if (!empty($result)) {
             return $result;
         }
@@ -144,7 +131,6 @@ class JoltGate {
         return $result;
     }
 
-    // Admin menu for setting the slug
     public function add_settings_page() {
         add_options_page(
             'JOLT Gate Settings',
@@ -161,7 +147,6 @@ class JoltGate {
             'sanitize_callback' => [$this, 'sanitize_slug'],
             'default' => $this->default_slug
         ]);
-        // NO add_settings_section or add_settings_field here, we build the form manually
     }
 
     public function sanitize_slug($slug) {
@@ -173,36 +158,64 @@ class JoltGate {
     public function settings_page_html() {
         $current_slug = get_option($this->option_name, $this->default_slug);
         $current_url = esc_html(home_url($current_slug));
+        $logo_url = plugins_url('assets/joltgatetransparant.png', __FILE__);
+        echo '<link rel="stylesheet" href="' . esc_url(plugins_url('assets/style.css', __FILE__)) . '" type="text/css" media="all" />';
         ?>
-        <div class="wrap">
-            <h1>JOLT Gate Settings</h1>
-            <div style="border-left:4px solid #2196F3; background:#f6fbff; padding:10px 24px; margin:20px 0 10px 0;">
-                <strong>Important:</strong> Remember your new login URL! If you forget it, you can deactivate the plugin via FTP by renaming the plugin folder.
+        <div class="jolt-gate-admin-page">
+            <div class="jolt-gate-header">
+                <img src="<?php echo esc_url($logo_url); ?>" alt="JOLT Gate Logo" class="jolt-gate-logo" />
+                <div>
+                    <h1>JOLT Gate Settings</h1>
+                    <div class="jolt-gate-welcome">
+                        Welcome to <strong>JOLT Gate!</strong> Easily change your WordPress login URL for better security.
+                    </div>
+                </div>
             </div>
-            <div style="border-left:4px solid #ffb300; background:#fffdf3; padding:10px 24px; margin:0 0 28px 0;">
-                <strong>Note:</strong> After changing the login slug you may need to refresh your permalink structure by going to Settings &rarr; Permalinks and clicking "Save Changes".
+            <div class="jolt-gate-warning">
+                <strong>Important:</strong> Make sure to save your new login URL. Be careful when sharing this link, as anyone with access to it can log in to your site.
+                <div class="jolt-gate-url-copy">
+                    <span id="jolt-login-url"><?php echo $current_url; ?></span>
+                    <button type="button" id="jolt-copy-btn" onclick="joltCopyLoginUrl()">Copy</button>
+                </div>
             </div>
-            <h2 style="margin-top:32px;">Login URL Settings</h2>
-            <p>Change your WordPress login URL for better security.</p>
-            <form method="post" action="options.php">
-                <?php settings_fields('jolt-gate-settings'); ?>
-                <table class="form-table" role="presentation">
-                    <tr>
-                        <th scope="row"><label for="jolt-gate-login-slug">Custom Login Slug</label></th>
-                        <td>
-                            <input type="text" id="jolt-gate-login-slug" name="<?php echo esc_attr($this->option_name); ?>" value="<?php echo esc_attr($current_slug); ?>" class="regular-text" />
-                            <p class="description">
-                                Enter the new login slug (for example: <code>myadmin</code>, <code>admin</code>, <code>login</code>). Use only letters, numbers and hyphens.
-                            </p>
-                            <p style="margin:8px 0 0 0;"><strong>Current login URL:</strong>
-                                <code><?php echo $current_url; ?></code>
-                            </p>
-                        </td>
-                    </tr>
-                </table>
-                <?php submit_button('Save Changes'); ?>
-            </form>
+            <div class="jolt-gate-card">
+                <h2>Login URL Settings</h2>
+                <form method="post" action="options.php" class="jolt-gate-form">
+                    <?php settings_fields('jolt-gate-settings'); ?>
+                    <label for="jolt-gate-login-slug">Custom Login Slug:</label>
+                    <input type="text" id="jolt-gate-login-slug" name="<?php echo esc_attr($this->option_name); ?>" value="<?php echo esc_attr($current_slug); ?>" />
+                    <div class="jolt-gate-description">
+                        Enter the new login slug (e.g. <code>myadmin</code>, <code>admin</code>, <code>login</code>). Only letters, numbers and hyphens.<br>
+                        <strong>Current login URL:</strong> <code><?php echo $current_url; ?></code>
+                    </div>
+                    <?php submit_button('Save Changes', 'primary', '', false); ?>
+                </form>
+            </div>
+            <hr>
+            <div class="jolt-gate-help">
+                Need help? If you're not sure what something does, ask your website administrator before proceeding.
+            </div>
         </div>
+        <script>
+        function joltCopyLoginUrl() {
+            const urlText = document.getElementById('jolt-login-url').innerText;
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(urlText);
+            } else {
+                // fallback
+                const tempInput = document.createElement('input');
+                tempInput.value = urlText;
+                document.body.appendChild(tempInput);
+                tempInput.select();
+                document.execCommand('copy');
+                document.body.removeChild(tempInput);
+            }
+            document.getElementById('jolt-copy-btn').innerText = "Copied!";
+            setTimeout(function(){
+                document.getElementById('jolt-copy-btn').innerText = "Copy";
+            }, 1500);
+        }
+        </script>
         <?php
     }
 }
