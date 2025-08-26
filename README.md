@@ -14,8 +14,7 @@ You can read how to install [here](https://github.com/DevAldon/WordPress/wiki/Ho
 #
 
 <img width="282" height="420" alt="2025-08-12 13_56_12-Greenshot" src="https://github.com/user-attachments/assets/bafe9df9-73b2-4b7a-804d-8696e736f129" />
-<img width="1016" height="505" alt="Screenshot 2025-08-12 at 14-39-55 JOLT Gate Settings ‹ " src="https://github.com/user-attachments/assets/243fd392-19ce-4baa-8c09-4dfece80c727" />
-
+<img width="938" height="800" alt="afbeelding" src="https://github.com/user-attachments/assets/1dfdae3f-a295-47b3-9a31-0f2051afd07b" />
 
 ---
 
