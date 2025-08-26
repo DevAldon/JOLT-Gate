@@ -1,5 +1,5 @@
 <h1>JOLT Gate</h1>
-<img src="https://github.com/user-attachments/assets/987c677b-7218-4b1d-bc29-98e2367cb48e" alt="JOLT Gate" width="300" ><br>
+<img src="https://github.com/user-attachments/assets/e042958f-3a9b-4202-b3af-102d59290330" alt="JOLT Gate" width="300" ><br>
 
 JOLT Gate is a WordPress plugin that significantly increases your website's security by restricting access to the login page and admin area.<br>
 The plugin also disables XML-RPC and optionally restricts the REST API to logged-in users only.<br><br>
