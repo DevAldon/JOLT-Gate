@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: JOLT Gate
-Plugin URI: https://github.com/johnoltmans/JOLT-Gate
+Plugin URI: https://github.com/DevAldon/JOLT-Gate
 Description: Replaces wp-login.php with a configurable custom login URL (default: /myadmin). Also blocks XML-RPC and restricts the REST API to logged-in users only.
 Version: 3.4.1
 Requires at least: 6.8
